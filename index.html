@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yellow Spirit</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"></script>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        height: 100%;
+      }
+      .container {
+        display: flex;
+        max-width: 800px;
+        margin: 0 auto;
+        min-height: 100vh;
+      }
+      .left-panel {
+        width: 30%;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      .right-panel {
+        width: 70%;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto;
+      }
+      .logo svg {
+        width: 50px;
+        height: 25px;
+      }
+      h1 {
+        font-size: 1.2rem;
+        margin-top: 20px;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        margin-bottom: 10px;
+      }
+      @media (max-width: 600px) {
+        .container {
+          flex-direction: column;
+        }
+        .left-panel,
+        .right-panel {
+          width: 100%;
+        }
+        .left-panel {
+          position: static;
+          height: auto;
+        }
+      }
+      #markdown-content img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-panel">
+        <div class="logo">
+          <svg viewBox="0 0 100 50">
+            <polygon
+              points="10,40 40,10 50,20 60,10 90,40"
+              fill="none"
+              stroke="black"
+            />
+          </svg>
+        </div>
+        <h1>RIVAI:</h1>
+        <ul>
+          <li>• mechanism</li>
+          <li>• story</li>
+        </ul>
+        <h1>Career:</h1>
+        <ul>
+          <li>• Unreal client</li>
+        </ul>
+      </div>
+      <div class="right-panel">
+        <div id="markdown-content"></div>
+      </div>
+    </div>
+
+    <script>
+      fetch("index.md")
+        .then((response) => response.text())
+        .then((markdownContent) => {
+          document.getElementById("markdown-content").innerHTML =
+            marked.parse(markdownContent);
+        })
+        .catch((error) => {
+          document.getElementById(
+            "markdown-content"
+          ).innerHTML = `<p>마크다운 파일을 불러오는 중 오류가 발생했습니다: ${error.message}</p>`;
+        });
+    </script>
+  </body>
+</html>
